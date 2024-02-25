@@ -126,7 +126,7 @@ class Cell:
 
         fill_color = "red"
         if undo:
-            fill_color = "gray"
+            fill_color = "white"
 
         # moving left
         if self._x1 > to_cell._x1:
@@ -208,7 +208,7 @@ class Maze:
         if self.win is None:
             return
         self.win.redraw()
-        sleep(0.001)
+        sleep(0.05)
 
     def _break_entrance_and_exit(self):
         top_left_cell = self._cells[0][0]
@@ -334,14 +334,13 @@ def create_new_maze(win: Window):
     maze._break_entrance_and_exit()
     maze._break_walls_r(0, 0)
     maze._reset_cells_visited()
+    win.solve_function = maze.solve
     return maze
 
 
 def main():
     win = Window(800, 650)
-    maze = create_new_maze(win)
-
-    win.solve_function = maze.solve
+    create_new_maze(win)
 
     win.wait_for_close()
 
